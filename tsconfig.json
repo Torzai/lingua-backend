@@ -2,7 +2,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "ES2021",
-    "lib": ["ES2021"],
+    "lib": [
+      "ES2021"
+    ],
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -15,20 +17,46 @@
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": "./src",
     "paths": {
-      "@/*": ["*"],
-      "@auth/*": ["auth/*"],
-      "@users/*": ["users/*"],
-      "@vocabulary/*": ["vocabulary/*"],
-      "@progress/*": ["progress/*"],
-      "@exercises/*": ["exercises/*"],
-      "@points/*": ["points/*"],
-      "@chat/*": ["chat/*"],
-      "@common/*": ["common/*"],
-      "@config/*": ["config/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@auth/*": [
+        "./src/auth/*"
+      ],
+      "@users/*": [
+        "./src/users/*"
+      ],
+      "@vocabulary/*": [
+        "./src/vocabulary/*"
+      ],
+      "@progress/*": [
+        "./src/progress/*"
+      ],
+      "@exercises/*": [
+        "./src/exercises/*"
+      ],
+      "@points/*": [
+        "./src/points/*"
+      ],
+      "@chat/*": [
+        "./src/chat/*"
+      ],
+      "@common/*": [
+        "./src/common/*"
+      ],
+      "@config/*": [
+        "./src/config/*"
+      ]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test",
+    "**/*.spec.ts"
+  ]
 }
