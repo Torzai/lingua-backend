@@ -12,32 +12,32 @@ datasource db {
 
 // USUARIOS
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  nombre    String
-  avatar    String?
+  id       String  @id @default(cuid())
+  email    String  @unique
+  password String
+  nombre   String
+  avatar   String?
 
   // Idiomas y nivel
-  idiomaNativo    String   @default("es")  // es | it
-  idiomaNivelES   Int      @default(0)     // Nivel en español
-  idiomaNivelIT   Int      @default(0)     // Nivel en italiano
+  idiomaNativo  String @default("es") // es | it
+  idiomaNivelES Int    @default(0) // Nivel en español
+  idiomaNivelIT Int    @default(0) // Nivel en italiano
 
   // Sistema de puntos y premium
-  puntos    Int      @default(0)
-  premium   Boolean  @default(false)
+  puntos        Int       @default(0)
+  premium       Boolean   @default(false)
   premiumExpira DateTime?
 
   // Gamificación
-  racha     Int      @default(0)           // Racha actual de días
+  racha               Int       @default(0) // Racha actual de días
   ultimaPracticaFecha DateTime?
-  totalDiasActivos Int @default(0)
+  totalDiasActivos    Int       @default(0)
 
   // Relaciones
-  progreso  Progress[]
-  duelosComoJ1 Duel[] @relation("jugador1")
-  duelosComoJ2 Duel[] @relation("jugador2")
-  mensajes  Message[]
+  progreso      Progress[]
+  duelosComoJ1  Duel[]        @relation("jugador1")
+  duelosComoJ2  Duel[]        @relation("jugador2")
+  mensajes      Message[]
   transacciones Transaction[]
 
   createdAt DateTime @default(now())
@@ -48,27 +48,27 @@ model User {
 
 // VOCABULARIO
 model Vocabulary {
-  id        String   @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Palabras
   palabraES String
   palabraIT String
-  
+
   // Contexto
-  categoria String   // saludos, numeros, colores, comida, familia, viajes, verbos
-  nivel     String   // A1, A2, B1, B2, C1
-  
+  categoria String // saludos, numeros, colores, comida, familia, viajes, verbos
+  nivel     String // A1, A2, B1, B2, C1
+
   // Ejemplos
   ejemploES String
   ejemploIT String
-  
+
   // Futuro: audio, imágenes
-  imagen    String?
-  audioES   String?
-  audioIT   String?
+  imagen  String?
+  audioES String?
+  audioIT String?
 
   // Relaciones
-  progreso  Progress[]
+  progreso   Progress[]
   ejercicios Exercise[]
 
   createdAt DateTime @default(now())
@@ -81,24 +81,24 @@ model Vocabulary {
 
 // PROGRESO DEL USUARIO
 model Progress {
-  id        String   @id @default(cuid())
-  
-  usuario   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  
-  vocabulario Vocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
+  id String @id @default(cuid())
+
+  usuario User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+
+  vocabulario  Vocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
   vocabularyId String
-  
+
   // Estadísticas
   repeticiones Int @default(0)
-  dominio Int @default(0)  // 0-100
-  correctas Int @default(0)
-  incorrectas Int @default(0)
-  
+  dominio      Int @default(0) // 0-100
+  correctas    Int @default(0)
+  incorrectas  Int @default(0)
+
   // Timestamps
   ultimaPracticaFecha DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
   @@unique([userId, vocabularyId])
   @@index([userId])
@@ -106,23 +106,23 @@ model Progress {
 
 // EJERCICIOS
 model Exercise {
-  id        String   @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Tipo de ejercicio
-  tipo      String   // multiple_choice, escribir, emparejar, escuchar
-  
+  tipo String // multiple_choice, escribir, emparejar, escuchar
+
   // Contenido
   pregunta  String
   respuesta String
   opciones  String[] // JSON array stringified
-  
+
   // Relación
-  vocabulario Vocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
+  vocabulario  Vocabulary @relation(fields: [vocabularyId], references: [id], onDelete: Cascade)
   vocabularyId String
-  
+
   // Dificultad
-  nivel     String   // A1, A2, B1
-  
+  nivel String // A1, A2, B1
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -132,27 +132,27 @@ model Exercise {
 
 // DUELOS (Fase 2)
 model Duel {
-  id        String   @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Jugadores
-  jugador1  User     @relation("jugador1", fields: [jugador1Id], references: [id], onDelete: Cascade)
+  jugador1   User   @relation("jugador1", fields: [jugador1Id], references: [id], onDelete: Cascade)
   jugador1Id String
-  
-  jugador2  User?    @relation("jugador2", fields: [jugador2Id], references: [id], onDelete: Cascade)
+
+  jugador2   User?   @relation("jugador2", fields: [jugador2Id], references: [id], onDelete: Cascade)
   jugador2Id String?
-  
+
   // Estado
-  estado    String   @default("pending")  // pending, in_progress, completed
-  ganador   String?
-  
+  estado  String  @default("pending") // pending, in_progress, completed
+  ganador String?
+
   // Puntos
   puntosEnJuego Int @default(10)
-  
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Relaciones
-  mensajes  Message[]
+  mensajes Message[]
 
   @@index([estado])
   @@index([jugador1Id])
@@ -160,16 +160,16 @@ model Duel {
 
 // CHAT
 model Message {
-  id        String   @id @default(cuid())
-  
-  usuario   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  
-  duel      Duel?    @relation(fields: [duelId], references: [id], onDelete: Cascade)
-  duelId    String?
-  
+  id String @id @default(cuid())
+
+  usuario User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+
+  duel   Duel?   @relation(fields: [duelId], references: [id], onDelete: Cascade)
+  duelId String?
+
   contenido String
-  
+
   createdAt DateTime @default(now())
 
   @@index([userId])
@@ -178,15 +178,15 @@ model Message {
 
 // TRANSACCIONES (Sistema de puntos)
 model Transaction {
-  id        String   @id @default(cuid())
-  
-  usuario   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  
-  tipo      String   // gana, gasta
-  cantidad  Int
-  motivo    String   // leccion_completada, duel_ganado, compra_premium
-  
+  id String @id @default(cuid())
+
+  usuario User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
+
+  tipo     String // gana, gasta
+  cantidad Int
+  motivo   String // leccion_completada, duel_ganado, compra_premium
+
   createdAt DateTime @default(now())
 
   @@index([userId])
