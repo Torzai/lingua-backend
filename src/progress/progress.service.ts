@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateProgressDto } from './dto/create-progress.dto';
 import { UpdateProgressDto } from './dto/update-progress.dto';
 
 @Injectable()
@@ -151,7 +150,10 @@ export class ProgressService {
     const palabrasAprendidas = progressList.filter(
       (p) => p.dominio >= 80,
     ).length;
-    const totalCorrectas = progressList.reduce((acc, p) => acc + p.correctas, 0);
+    const totalCorrectas = progressList.reduce(
+      (acc, p) => acc + p.correctas,
+      0,
+    );
     const totalIncorrectas = progressList.reduce(
       (acc, p) => acc + p.incorrectas,
       0,

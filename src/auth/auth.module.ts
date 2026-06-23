@@ -13,11 +13,13 @@ import type { StringValue } from 'ms';
     PassportModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'secret',
-      signOptions: { expiresIn: (process.env.JWT_EXPIRE || '7d') as StringValue },
+      signOptions: {
+        expiresIn: (process.env.JWT_EXPIRE || '7d') as StringValue,
+      },
     }),
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
   exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

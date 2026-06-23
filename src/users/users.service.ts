@@ -83,7 +83,10 @@ export class UsersService {
       user.progreso.length > 0
         ? Math.round(
             (user.progreso.reduce((acc, p) => acc + p.correctas, 0) /
-              (user.progreso.reduce((acc, p) => acc + p.correctas + p.incorrectas, 0) || 1)) *
+              (user.progreso.reduce(
+                (acc, p) => acc + p.correctas + p.incorrectas,
+                0,
+              ) || 1)) *
               100,
           )
         : 0;

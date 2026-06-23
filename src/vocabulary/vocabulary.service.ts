@@ -58,7 +58,7 @@ export class VocabularyService {
   async findRandom() {
     const count = await this.prisma.vocabulary.count();
     const skip = Math.floor(Math.random() * count);
-    
+
     return await this.prisma.vocabulary.findFirst({
       skip,
     });

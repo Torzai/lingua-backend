@@ -110,7 +110,7 @@ const vocabularioInicial = [
     categoria: 'colores',
     nivel: 'A1',
     ejemploES: 'El árbol es verde',
-    ejemploIT: 'L\'albero è verde',
+    ejemploIT: "L'albero è verde",
   },
   {
     palabraES: 'Amarillo',
@@ -236,7 +236,7 @@ const vocabularioInicial = [
     categoria: 'viajes',
     nivel: 'A1',
     ejemploES: 'Tomaré un avión a Italia',
-    ejemploIT: 'Prenderò un aereo per l\'Italia',
+    ejemploIT: "Prenderò un aereo per l'Italia",
   },
   {
     palabraES: 'Hotel',

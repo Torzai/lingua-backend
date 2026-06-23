@@ -46,7 +46,10 @@ export class UsersController {
 
   @Put('me')
   @UseGuards(JwtGuard)
-  async updateMe(@Request() req: CustomRequest, @Body() updateUserDto: UpdateUserDto) {
+  async updateMe(
+    @Request() req: CustomRequest,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.usersService.update(req.user!.userId, updateUserDto);
   }
 
